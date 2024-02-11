@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./output.css" rel="stylesheet">
+  <link href="./inscreption.css" rel="stylesheet">
 </head>
 <body>
 <div class="min-h-screen py-40" style="background: linear-gradient(115deg, green 20%, cyan);">
@@ -13,7 +13,7 @@
       <h1 class="text-3xl mb-3 py-14 font-bold ">Welcome</h1>  
       </div>
       <div class="w-full lg:w-1/2 py-16 px-12">
-        <h2 class="text-3xl mb-4 font-bold">Register</h2>
+        <h2 class="text-3xl mb-4 font-bold       flex flex-col items-center">Register</h2>
         <p class="mb-4"> create your Account.</p>
       <form method="POST" action="connexion.php">
         <div class="grid grid-cols-2 gap-5">
@@ -130,6 +130,7 @@ function updateEmail() {
         </div>
         <div class="mt-5">
           <input type="password" name="password" placeholder="Password" class="border border-gray-400 py-1 px-2 w-full" />
+          
         </div>
         
         <div class="mt-5">
@@ -142,7 +143,7 @@ function updateEmail() {
       </span>
         </div>
         <div class="mt-6">
-          <button value="Envoyer" type="submit" class="bg-green-500 text-white py-2 px-4 rounded w-full">Register</button>
+          <button value="Envoyer" type="submit" class="bg-green-500 text-white py-2 px-4 rounded w-full">Enregistrer</button>
         </div>
       </form>
       </div>
