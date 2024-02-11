@@ -47,7 +47,7 @@
         ?>
           </select> 
           <label >Last Name</label>
-          <select type="text" name="lname" placeholder="LastName" id="lname" class="border border-gray-400 py-1 px-2" required onchange="updateEmail()">>
+          <select type="text" name="lname" placeholder="LastName" id="lname" class="appearance-none border rounded-md border-gray-400 py-1 px-2" required onchange="updateEmail()">>
           <?php
       
         // Requête pour récupérer les données depuis une table (ajustez selon votre base de données)

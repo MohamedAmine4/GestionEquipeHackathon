@@ -26,20 +26,92 @@ if (isset($_POST["submit"])){
       </div>
       <div class="w-full lg:w-1/2 py-16 px-12 ">
         <h2 class="text-3xl mb-4 font-bold font-mono flex flex-col items-center ">ADD A TEAM</h2>
-        <p class="mb-4 flex flex-col items-center"> Hackathon Team</p>
+        <p class="mb-4 flex flex-col items-center font-mono text-gray-400"> Hackathon Team</p>
       <form method="POST" action="connexion.php">
         <div class="grid grid-cols-1 gap-5">
 
             <label class="font-mono text-gray-400" style="font-size: 20px;">Team Name</label>
-            <input type="text" name="Teamname" placeholder="Team Name" class="border shadow-sm border-slate-300 rounded-md py-1 px-2 w-full h-10"  />
+            <input type="text" name="Teamname" placeholder="Team Name" class="appearance-none border rounded-md border-gray-400 py-1 px-2 w-full h-10"  />
         </div>
+        <div class="mt-5 grid grid-cols-2 gap-5">
+        <label >L3 Student</label>
+          <select type="text" name="l3name" placeholder="FirstName" class="border border-gray-400 py-1 px-2 w-full" required>
+          <?php
+        // Connexion à la base de données
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "hackathon";
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Vérifier la connexion
+        if ($conn->connect_error) {
+            die("La connexion à la base de données a échoué : " . $conn->connect_error);
+        }
+
+        // Requête pour récupérer les données depuis une table (ajustez selon votre base de données)
+        $sql = "SELECT * FROM etudiant WHERE class='l3' ";
+        $result = $conn->query($sql);
+
+        // Afficher les options du select
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<option value='" . $row['id'] . "'>" . $row['lastname'] . "</option>";
+            }
+        } else {
+            echo "<option value=''>Aucune donnée trouvée</option>";
+        }
+        // Fermer la connexion à la base de données
+        ?>
+          </select> 
+          <label >M1 Student</label>
+          <select type="text" name="m1name" placeholder="LastName" id="lname" class="border border-gray-400 py-1 px-2" required >
+          <?php
+      
+        // Requête pour récupérer les données depuis une table (ajustez selon votre base de données)
+        $sql = "SELECT * FROM etudiant WHERE class='M1'";
+        $result = $conn->query($sql);
+
+        // Afficher les options du select
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<option value='" . $row['id'] . "'>" . $row['lastname'] . "</option>";
+            }
+            $lname = $_POST['lastname'];
+        } else {
+            echo "<option value=''>Aucune donnée trouvée</option>";
+        }
+        // Fermer la connexion à la base de données
         
+        ?>
+          </select>
+          <label >M2 Student</label>
+          <select type="text" name="m2name" placeholder="LastName" id="lname" class="border border-gray-400 py-1 px-2" required >
+          <?php
+      
+        // Requête pour récupérer les données depuis une table (ajustez selon votre base de données)
+        $sql = "SELECT * FROM etudiant WHERE class='M2'";
+        $result = $conn->query($sql);
+
+        // Afficher les options du select
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo "<option value='" . $row['id'] . "'>" . $row['lastname'] . "</option>";
+            }
+            $lname = $_POST['lastname'];
+        } else {
+            echo "<option value=''>Aucune donnée trouvée</option>";
+        }
+        // Fermer la connexion à la base de données
+        $conn->close();
+        ?>
+          </select>
+        </div>
         <div class="mt-6  ">
         <div class="flex mt-4 md:mt-6">
           
-    <button value="Envoyer" type="submit" class="bg-green-500 text-red py-2 px-4 rounded" style="width: 50%;">Submit</button>
+    <button value="Envoyer" type="submit" class="bg-green-500 text-red py-2 px-4 rounded" style="width: 50%;">Add Team</button>
 
-    <button value="Envoyer" type="button" class="bg-blue-500 text-red py-2 px-6 rounded " style="width: 50%;">Retour</button>
+    <button value="Envoyer" type="button" class="bg-blue-500 text-red py-2 px-6 rounded " style="width: 50%;">Back</button>
 </div>
 </div>
       </form>
