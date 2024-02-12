@@ -43,7 +43,7 @@ if (
   isset($_POST['m1name']) && isset($_POST['m2name'])
 
 ) {
-  echo "team". $_POST['Teamname'] ."l3". $_POST['l3name'] ."m1". $_POST['m1name'] ."m2". $_POST['m2name'];
+
   if (
     !empty($_POST['Teamname']) && !empty($_POST['l3name']) &&
     !empty($_POST['m1name']) && !empty($_POST['m2name'])
@@ -54,8 +54,19 @@ if (
     $m1name = htmlspecialchars($_POST['m1name']);
     $m2name = htmlspecialchars($_POST['m2name']);
 
-    $insertionTeamName = $connection->prepare('INSERT INTO `equipe` (`teamname`) VALUES (?)');
-    $insertionTeamName->execute(array($Teamname));
+    // Vérifier si le nom d'équipe existe déjà
+    $checkTeamExistence = $connection->prepare('SELECT COUNT(*) FROM `equipe` WHERE `teamname` = ?');
+    $checkTeamExistence->execute(array($Teamname));
+
+    // Récupérer le résultat de la requête
+    $teamExistenceResult = $checkTeamExistence->fetchColumn();
+
+    if ($teamExistenceResult > 0) {
+        echo '<center><h1>Le nom d\'équipe existe déjà. Veuillez choisir un autre nom.</h1></center>';
+    } else {
+        // Insérer le nom d'équipe seulement si le nom n'existe pas déjà
+        $insertionTeamName = $connection->prepare('INSERT INTO `equipe` (`teamname`) VALUES (?)');
+        $insertionTeamName->execute(array($Teamname));
     $TeamID = $connection->prepare('SELECT id FROM equipe WHERE  teamname=?');
     $TeamID->execute(array($Teamname));
 
@@ -77,9 +88,9 @@ if (
       
 
       echo "<center><h1>équipe a été bien ajouté !!</h1></center>";
-    }
+    }}
   } else {
-    echo 'Attention, Tous Les Champs Sont Obligatoires   HHHHHH !!';
+    echo 'Attention, Tous Les Champs Sont Obligatoires !!';
   }
 }
 ?>

@@ -15,7 +15,7 @@ if (isset($_POST["submit"])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./equipe.css" rel="stylesheet">
+  <link href="./modifierequipe.css" rel="stylesheet">
 </head>
 <body>
 <div class="min-h-screen py-40" style="background: linear-gradient(115deg, green 20%, cyan);">
@@ -25,12 +25,12 @@ if (isset($_POST["submit"])){
       <h1 class="text-3xl mb-3 py-14 font-bold font-mono">Welcome</h1>  
       </div>
       <div class="w-full lg:w-1/2 py-16 px-12 ">
-        <h2 class="text-3xl mb-4 font-bold font-mono flex flex-col items-center ">ADD A TEAM</h2>
+        <h2 class="text-3xl mb-4 font-bold font-mono flex flex-col items-center ">Modify A TEAM</h2>
         <p class="mb-4 flex flex-col items-center font-mono text-gray-400"> Hackathon Team</p>
       <form method="POST" action="connexion.php">
       <div class="mt-5 grid grid-cols-2 gap-5">
-      <label class="font-mono text-gray-400" style="font-size: 20px;" >Existing Team</label>
-          <select type="text" name="teamexisting" placeholder="FirstName" class="border border-gray-400 py-1 px-2 w-full" >
+      <label class="font-mono text-gray-400" style="font-size: 20px;" >Exesting Team</label>
+          <select type="text" name="teamexisting"  id="teamexistingid" placeholder="FirstName" class="border border-gray-400 py-1 px-2 w-full" required onchange="updateTeam()">
           <?php
         // Connexion à la base de données
         $servername = "localhost";
@@ -53,12 +53,20 @@ if (isset($_POST["submit"])){
             while ($row = $result->fetch_assoc()) {
                 echo "<option value='" . $row['id'] . "'>" . $row['teamname'] . "</option>";
             }
+            $idteam= $_POST['id'];
         } else {
             echo "<option value=''>Aucune donnée trouvée</option>";
         }
       
         ?>
+        
           </select> 
+      </div>
+      <div class="mt-5 grid grid-cols-2 gap-5">
+      <input type="text" name="m2" id="namet" value="m2" disabled>
+        <input type="text" name="l3" id="l3" value="l3" disabled>
+        <input type="text" name="m1" id="m1" value="m1" disabled>
+        <input type="text" name="m2" id="m2" value="m2" disabled>
       </div>
         <div class="mt-5 grid grid-cols-2 gap-5">
 
@@ -73,7 +81,7 @@ if (isset($_POST["submit"])){
         // Requête pour récupérer les données depuis une table (ajustez selon votre base de données)
         $sql = "SELECT * FROM etudiant WHERE class='l3' ";
         $result = $conn->query($sql);
-
+          
         // Afficher les options du select
         if ($result->num_rows > 0) {
           echo "<option '>" . "" . "</option>";
@@ -145,6 +153,135 @@ if (isset($_POST["submit"])){
   </div>
   </div>
 </div>
+<script>
+  function myFunction() {
+  console.log("Début de l'attente");
+
+  // Attendre 3 secondes (3000 millisecondes)
+  setTimeout(function() {
+    console.log("Fin de l'attente après 3 secondes");
+    // Votre code ici après l'attente
+  }, 3000);
+}
+
+// Appel de la fonction
+
+// Début du code JavaScript
+// Fonction qui met à jour l'input email en fonction du nom de famille choisi
+function updateTeam() {
+  // Récupérer la valeur du select
+  var teamidequipe = document.getElementById("teamexistingid").value;
+  var nameequipe="";
+  console.log(teamidequipe);
+  // Créer l'URL du fichier JSON
+  var urlequipe="http://localhost/web_php/Tp_web/src/equipedata.php";
+  var url = "http://localhost/web_php/Tp_web/src/lienequipedata.php";
+  var urletudiant="http://localhost/web_php/Tp_web/src/data.php";
+  var etudiantesID = [];
+  var etudiantesname = [];
+  fetch(urlequipe)
+    .then((response) => {
+      // Vérifier si la requête a réussi
+      if (response.ok) {
+        // Renvoyer le corps de la réponse en JSON
+        return response.json();
+      } else {
+        // Afficher un message d'erreur
+        console.error("Erreur lors de la requête : " + response.status);
+      }
+    })
+    .then((data) => {
+      // Initialiser l'email à une chaîne vide
+      
+      // Parcourir le tableau data
+      for (var i = 0; i < data.length; i++) {
+        // Vérifier si le nom de famille de l'objet courant correspond à la valeur du select
+        if (data[i].id == teamidequipe) {
+          nameequipe=data[i].teamname;
+      
+          
+        }
+      }
+      // Mettre à jour la valeur de l'input email
+    
+    
+    })
+    .catch((error) => {
+      // Afficher un message d'erreur
+      console.error("Erreur lors de la récupération du JSON : " + error);
+    });
+  // Utiliser l'API Fetch pour récupérer le contenu du fichier JSON
+  fetch(url)
+    .then((response) => {
+      // Vérifier si la requête a réussi
+      if (response.ok) {
+        // Renvoyer le corps de la réponse en JSON
+        return response.json();
+      } else {
+        // Afficher un message d'erreur
+        console.error("Erreur lors de la requête : " + response.status);
+      }
+    })
+    .then((data) => {
+      // Initialiser l'email à une chaîne vide
+      
+      // Parcourir le tableau data
+      for (var i = 0; i < data.length; i++) {
+        // Vérifier si le nom de famille de l'objet courant correspond à la valeur du select
+        if (data[i].teamID == teamidequipe) {
+      etudiantesID.push(data[i].etudaintID);
+      
+          
+        }
+      }
+      // Mettre à jour la valeur de l'input email
+    
+    
+    })
+    .catch((error) => {
+      // Afficher un message d'erreur
+      console.error("Erreur lors de la récupération du JSON : " + error);
+    });
+///////////////////////////////////fetxh nom des etudiantes
+
+    fetch(urletudiant)
+    .then((response) => {
+      // Vérifier si la requête a réussi
+      if (response.ok) {
+        // Renvoyer le corps de la réponse en JSON
+        return response.json();
+      } else {
+        // Afficher un message d'erreur
+        console.error("Erreur lors de la requête : " + response.status);
+      }
+    })
+    .then((dataEtudiants) => {
+      // Initialiser l'email à une chaîne vide
+      console.log(etudiantesID);
+      // Parcourir le tableau data
+      for (var i = 0; i < dataEtudiants.length; i++) {
+        // Vérifier si le nom de famille de l'objet courant correspond à la valeur du select
+        if (dataEtudiants[i].id == etudiantesID[0] || dataEtudiants[i].id == etudiantesID[1] || dataEtudiants[i].id == etudiantesID[2]) {
+          etudiantesname.push(dataEtudiants[i].lastname);
+          
+        }
+      }
+      console.log(etudiantesname);
+      // Mettre à jour la valeur de l'input email
+      myFunction();
+      document.getElementById("namet").value = nameequipe;
+      document.getElementById("l3").value = etudiantesname[0];
+      document.getElementById("m1").value = etudiantesname[1];
+      document.getElementById("m2").value = etudiantesname[2];
+      
+    })
+    .catch((error) => {
+      // Afficher un message d'erreur
+      console.error("Erreur lors de la récupération du JSON : " + error);
+    });
+}
+// Fin du code JavaScript
+</script>
 </body>
 
 
