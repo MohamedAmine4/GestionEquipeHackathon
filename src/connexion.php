@@ -43,6 +43,7 @@ if (
   isset($_POST['m1name']) && isset($_POST['m2name'])
 
 ) {
+  
 
   if (
     !empty($_POST['Teamname']) && !empty($_POST['l3name']) &&
@@ -53,7 +54,9 @@ if (
     $l3name = htmlspecialchars($_POST['l3name']);
     $m1name = htmlspecialchars($_POST['m1name']);
     $m2name = htmlspecialchars($_POST['m2name']);
-
+    $l3="L3";
+    $m1="M1";
+    $m2="M2"; 
     // Vérifier si le nom d'équipe existe déjà
     $checkTeamExistence = $connection->prepare('SELECT COUNT(*) FROM `equipe` WHERE `teamname` = ?');
     $checkTeamExistence->execute(array($Teamname));
@@ -77,14 +80,14 @@ if (
     if ($teamIDResult) {
       $teamID = $teamIDResult['id'];
 
-      $insertionLienEquipe = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`) VALUES (?, ?)');
-      $insertionLienEquipe->execute(array($teamID, $l3name));
+      $insertionLienEquipe = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`,`class`) VALUES (?, ?,?)');
+      $insertionLienEquipe->execute(array($teamID, $l3name,$l3));
       
-      $m1 = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`) VALUES (?, ?)');
-      $m1->execute(array($teamID, $m1name));
+      $m1 = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`,`class`) VALUES (?, ?,?)');
+      $m1->execute(array($teamID, $m1name,$m1));
       
-      $m2 = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`) VALUES (?, ?)');
-      $m2->execute(array($teamID, $m2name));
+      $m2 = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`,`class`) VALUES (?, ?,?)');
+      $m2->execute(array($teamID, $m2name,$m2));
       
 
       echo "<center><h1>équipe a été bien ajouté !!</h1></center>";

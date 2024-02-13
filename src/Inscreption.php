@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./inscreption.css" rel="stylesheet">
+  <title>Inscreption</title>
 </head>
 <body>
-<div class="min-h-screen py-40" style="background: linear-gradient(115deg, green 20%, cyan);">
+  
+
+
+
+<div class="min-h-screen py-40 bg-center bg-no-repeat bg-cover bg-fixed bg-gray-700 bg-blend-multiply" style="background-image: url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg');">
   <div class="container mx-auto">
     <div class="flex flex-col lg:flex-row w_8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
-      <div class="w-full lg:w-1/2 flex flex-col items-center h-full bg-green-500" style="background-image: url(images/hackathon.png); background-size:auto; background-repeat: no-repeat; background-position: center; height: 650px;">
+      <div class="w-full lg:w-1/2 flex flex-col items-center h-full bg-gray-700" style="background-image: url(images/hackathon.png); background-size:auto; background-repeat: no-repeat; background-position: center; height: 650px;">
       <h1 class="text-3xl mb-3 py-14 font-bold ">Welcome</h1>  
       </div>
       <div class="w-full lg:w-1/2 py-16 px-12">
@@ -37,6 +42,7 @@
 
         // Afficher les options du select
         if ($result->num_rows > 0) {
+          echo "<option '>" . "" . "</option>";
             while ($row = $result->fetch_assoc()) {
                 echo "<option value='" . $row['firstname'] . "'>" . $row['firstname'] . "</option>";
             }
@@ -56,6 +62,7 @@
 
         // Afficher les options du select
         if ($result->num_rows > 0) {
+          echo "<option '>" . "" . "</option>";
             while ($row = $result->fetch_assoc()) {
                 echo "<option value='" . $row['lastname'] . "'>" . $row['lastname'] . "</option>";
             }
@@ -77,48 +84,42 @@
 // Début du code JavaScript
 // Fonction qui met à jour l'input email en fonction du nom de famille choisi
 function updateEmail() {
-  // Récupérer la valeur du select
   var lname = document.getElementById("lname").value;
-  // Créer l'URL du fichier JSON
   var url = "http://localhost/web_php/Tp_web/src/data.php";
-  // Utiliser l'API Fetch pour récupérer le contenu du fichier JSON
+
   fetch(url)
-    .then((response) => {
-      // Vérifier si la requête a réussi
+    .then(response => {
       if (response.ok) {
-        // Renvoyer le corps de la réponse en JSON
         return response.json();
       } else {
-        // Afficher un message d'erreur
-        console.error("Erreur lors de la requête : " + response.status);
+        throw new Error("Erreur lors de la requête : " + response.status);
       }
     })
-    .then((data) => {
-      // Initialiser l'email à une chaîne vide
+    .then(data => {
       var email = "";
-      var skills="";
-      // Parcourir le tableau data
+      var skills = "";
+
       for (var i = 0; i < data.length; i++) {
-        // Vérifier si le nom de famille de l'objet courant correspond à la valeur du select
         if (data[i].lastname == lname) {
-          // Récupérer l'email de l'objet courant
           email = data[i].email;
           skills = data[i].skills;
-          // Sortir de la boucle
           break;
         }
       }
-      // Mettre à jour la valeur de l'input email
-      document.getElementById("email").value = email;
-      document.getElementById("skills").value = skills;
 
-      console.log(email);
+      return { email, skills }; // Retourner un objet avec les valeurs
     })
-    .catch((error) => {
-      // Afficher un message d'erreur
+    .then(result => {
+      document.getElementById("email").value = result.email;
+      document.getElementById("skills").value = result.skills;
+
+      console.log(result.email);
+    })
+    .catch(error => {
       console.error("Erreur lors de la récupération du JSON : " + error);
     });
 }
+
 // Fin du code JavaScript
 </script>
 
@@ -151,5 +152,9 @@ function updateEmail() {
   </div>
   </div>
 </div>
+<?php
+  // Inclure le footer
+  include('footer.php');
+  ?>
 </body>
 </html>
