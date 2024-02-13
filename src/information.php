@@ -21,11 +21,17 @@ if (isset($_POST["submit"])){
 <body>
 <div class="min-h-screen py-40 bg-center bg-no-repeat bg-cover bg-fixed bg-gray-700 bg-blend-multiply" style="background-image: url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg');">
   <div class="container mx-auto">
-    <div class="flex flex-col lg:flex-row w_8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
-      <div class="w-full lg:w-1/2 flex flex-col items-center h-full bg-gray-700" style="background-image: url(images/hackathon.png); background-size:auto; background-repeat: no-repeat; background-position: center; height: 650px;">
-      <h1 class="text-3xl mb-3 py-14 font-bold font-mono">Welcome</h1>  
-      </div>
-      <div class="w-full lg:w-1/2 py-16 px-12">
+  <div class="flex flex-col lg:flex-row w_8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
+    <div class="w-full lg:w-1/2 flex flex-col items-center h-full bg-gray-700 relative" style="background-image: url(images/hackathon_flou.png); background-size: cover; background-repeat: no-repeat; background-position: center; height: 650px;">
+
+  <div class="w-full h-full flex flex-col items-center justify-center" style="position: relative; z-index: 1;">
+    <!-- Votre contenu centré ici -->
+    <div class="w-full h-full " style="background-image: url(images/hackathon.png); background-size: center; background-repeat: no-repeat; background-position: center; height: 650px;">
+      <!-- Image ou contenu que vous voulez centrer -->
+    </div>
+  </div>
+</div>
+      <div class="w-full lg:w-1/2 py-16 px-12 ">
         <h2 class="text-3xl mb-4 font-bold font-mono flex flex-col items-center">Information About Student</h2>
         <p class="mb-4"> Information Student.</p>
       <form method="POST" action="connexion.php">
@@ -120,9 +126,12 @@ function updateEmail() {
         <div class="mt-5">
           <input placeholder="Skills" name ="skills" id="skills" class="border border-gray-400 rounded-md py-1 px-2 w-full h-10" disabled></input>
         </div>
-        <div class="mt-6">
-          <button value="Envoyer" type="submit" class="bg-green-500  text-red py-2 px-4 rounded w-full">Retour</button>
-        </div>
+        <div class="mt-6 flex justify-end">
+  <button value="Envoyer" type="submit" class="bg-green-500 text-white py-2 px-4 rounded mr-auto">Get</button>
+  <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded">Annuler</button>
+</div>
+
+
       </form>
       </div>
   

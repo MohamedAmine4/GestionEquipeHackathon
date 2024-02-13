@@ -16,15 +16,21 @@ if (isset($_POST["submit"])){
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./equipe.css" rel="stylesheet">
-  <title>Teams</title>
+  <title>ADD Teams</title>
 </head>
 <body>
 <div class="min-h-screen py-40 bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply">
   <div class="container mx-auto">
     <div class="flex flex-col lg:flex-row w_8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
-      <div class="w-full lg:w-1/2 flex flex-col items-center h-full bg-gray-700" style="background-image: url(images/hackathon.png); background-size:auto; background-repeat: no-repeat; background-position: center; height: 650px;">
-      <h1 class="text-3xl mb-3 py-14 font-bold font-mono">Welcome</h1>  
-      </div>
+    <div class="w-full lg:w-1/2 flex flex-col items-center h-full bg-gray-700 relative" style="background-image: url(images/hackathon_flou.png); background-size: cover; background-repeat: no-repeat; background-position: center; height: 650px;">
+
+  <div class="w-full h-full flex flex-col items-center justify-center" style="position: relative; z-index: 1;">
+    <!-- Votre contenu centré ici -->
+    <div class="w-full h-full " style="background-image: url(images/hackathon.png); background-size: center; background-repeat: no-repeat; background-position: center; height: 650px;">
+      <!-- Image ou contenu que vous voulez centrer -->
+    </div>
+  </div>
+</div>
       <div class="w-full lg:w-1/2 py-16 px-12 ">
         <h2 class="text-3xl mb-4 font-bold font-mono flex flex-col items-center ">ADD A TEAM</h2>
         <p class="mb-4 flex flex-col items-center font-mono text-gray-400"> Hackathon Team</p>
@@ -133,11 +139,9 @@ if (isset($_POST["submit"])){
           </select>
         </div>
         <div class="mt-6  ">
-        <div class="flex mt-4 md:mt-6">
-          
-    <button value="Envoyer" type="submit" class="bg-green-500 text-red py-2 px-4 rounded" style="width: 50%;">Add Team</button>
-
-    <button value="Envoyer" type="button" class="bg-blue-500 text-red py-2 px-6 rounded " style="width: 50%;">Back</button>
+        <div class="mt-6 flex justify-end">
+  <button value="Envoyer" type="submit" class="bg-green-500 text-white py-2 px-4 rounded mr-2">ADD Team</button>
+  <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded">Annuler</button>
 </div>
 </div>
       </form>

@@ -21,10 +21,16 @@ if (isset($_POST["submit"])){
 <body>
 <div class="min-h-screen py-40 bg-center bg-no-repeat bg-cover bg-fixed bg-gray-700 bg-blend-multiply" style="background-image: url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg');">
   <div class="container mx-auto">
-    <div class="flex flex-col lg:flex-row w_8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
-      <div class="w-full lg:w-1/2 flex flex-col items-center h-full bg-gray-700" style="background-image: url(images/hackathon.png); background-size:auto; background-repeat: no-repeat; background-position: center; height: 650px;">
-      <h1 class="text-3xl mb-3 py-14 font-bold font-mono">Welcome</h1>  
-      </div>
+  <div class="flex flex-col lg:flex-row w_8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
+    <div class="w-full lg:w-1/2 flex flex-col items-center h-full bg-gray-700 relative" style="background-image: url(images/hackathon_flou.png); background-size: cover; background-repeat: no-repeat; background-position: center; height: 650px;">
+
+  <div class="w-full h-full flex flex-col items-center justify-center" style="position: relative; z-index: 1;">
+    <!-- Votre contenu centré ici -->
+    <div class="w-full h-full " style="background-image: url(images/hackathon.png); background-size: center; background-repeat: no-repeat; background-position: center; height: 650px;">
+      <!-- Image ou contenu que vous voulez centrer -->
+    </div>
+  </div>
+</div>
       <div class="w-full lg:w-1/2 py-16 px-12 ">
         <h2 class="text-3xl mb-4 font-bold font-mono flex flex-col items-center ">Modify A TEAM</h2>
         <p class="mb-4 flex flex-col items-center font-mono text-gray-400"> Hackathon Team</p>

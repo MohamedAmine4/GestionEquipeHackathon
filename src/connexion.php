@@ -11,8 +11,9 @@ if (
   isset($_POST['skills']) && isset($_POST['password']) && isset($_POST['email'])
 ) {
   if (
-    !empty($_POST['lname']) && !empty($_POST['fname']) &&
-    !empty($_POST['skills']) && !empty($_POST['password']) && !empty($_POST['email'])
+  (  !empty($_POST['lname']) && !empty($_POST['fname']) &&
+    !empty($_POST['skills']) && !empty($_POST['password']) && !empty($_POST['email']))||  ( !empty($_POST['lname']) && !empty($_POST['fname']) &&
+    !empty($_POST['skills']) && empty($_POST['password']) && !empty($_POST['email']))
   ) {
 
     $lname = htmlspecialchars($_POST['lname']);
@@ -24,7 +25,7 @@ if (
     $insertionEtudiant = $connection->prepare('UPDATE `etudiant` SET `email`=?, `skills`=?, `password`=? WHERE `lastname`=?');
     $insertionEtudiant->execute(array($email, $skills, $password, $lname));
 
-    echo '<center><h1>etudiant a été bien ajouté !!</h1></center>';
+    echo '<center><h1>les informations sont bien ajouté !!</h1></center>';
   } else {
     echo 'Attention, Tous Les Champs Sont Obligatoires !!';
   }
@@ -83,11 +84,11 @@ if (
       $insertionLienEquipe = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`,`class`) VALUES (?, ?,?)');
       $insertionLienEquipe->execute(array($teamID, $l3name,$l3));
       
-      $m1 = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`,`class`) VALUES (?, ?,?)');
-      $m1->execute(array($teamID, $m1name,$m1));
+      $m1insert = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`,`class`) VALUES (?, ?,?)');
+      $m1insert->execute(array($teamID, $m1name,$m1));
       
-      $m2 = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`,`class`) VALUES (?, ?,?)');
-      $m2->execute(array($teamID, $m2name,$m2));
+      $m2insert = $connection->prepare('INSERT INTO `lienequipeetudiant` (`teamID`, `etudaintID`,`class`) VALUES (?, ?,?)');
+      $m2insert->execute(array($teamID, $m2name,$m2));
       
 
       echo "<center><h1>équipe a été bien ajouté !!</h1></center>";
