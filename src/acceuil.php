@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./acceuil.css" rel="stylesheet">
   <title>Acceuil</title>
-</head>
+</head> 
 <body>
   
 
