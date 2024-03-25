@@ -19,11 +19,39 @@ if(!$_SESSION['lastname']){
 <body>
   <?php
     $recupUser=$connection->query('SELECT * FROM etudiant ');
-    while($user=$recupUser->fetch()){
-      ?>
-      <a href="MessageContent.php?id=<?php echo $user['id']; ?>" ><p><?php echo $user['lastname'] ?></p></a>
-      <?php
+    ?>
+    <?php
+    $users = $recupUser->fetchAll();
+    ?>
+    <select style="width:50%" onchange="location = this.value;">
+    <?php
+    foreach($users as $user){
+      if($user['class']=="l3")
+      echo "<option value='chat.php?id=" . $user['id'] . "'>" . $user['firstname'] ." ". $user['lastname'] . "</option>";
     }
-  ?>
+    ?>
+    </select>
+    <br/>
+    <br/>
+
+    <select style="width:50%" onchange="location = this.value;">
+    <?php
+    foreach($users as $user){
+      if($user['class']=="m1")
+      echo "<option value='chat.php?id=" . $user['id'] . "'>" . $user['firstname'] ." ". $user['lastname'] . "</option>";
+    }
+    ?>
+    </select>
+    <br/>
+    <br/>
+
+    <select style="width:50%" onchange="location = this.value;">
+    <?php
+    foreach($users as $user){
+      if($user['class']=="m2")
+      echo "<option value='chat.php?id=" . $user['id'] . "'>" . $user['firstname'] ." ". $user['lastname'] . "</option>";
+    }
+    ?>
+    </select>
 </body>
 </html>

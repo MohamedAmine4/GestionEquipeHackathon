@@ -50,11 +50,11 @@ else {
 <?php
 
   $recupUser = $connection->prepare('SELECT * FROM etudiant WHERE id = ?');
-  $recupUser->execute(array($_SESSION['id']));
+  $recupUser->execute(array($id));
   $user = $recupUser->fetch();
   
   ?>
-    <center>  <p style="color: black;"><?php  echo $user['lastname']?></p> </center>
+    <center>  <p style="color: black;"><?php  echo $user['firstname']." ". $user['lastname']?></p> </center>
 
   <?php
 
