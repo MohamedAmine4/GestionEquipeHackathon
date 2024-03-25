@@ -189,10 +189,11 @@ if (isset($_GET['id']) and !empty($_GET['id'])) {
     const el = document.getElementById('messages')
     el.scrollTop = el.scrollHeight
   </script>
-  <?php
+
+<br><br><br>
+<?php
   // Inclure le footer
-  include('footer.php');
+  include('../footer.php');
   ?>
 </body>
-
 </html>

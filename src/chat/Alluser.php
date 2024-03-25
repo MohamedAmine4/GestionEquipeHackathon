@@ -136,9 +136,10 @@ function rechercher() {
     </div>
   </div>
 </div>
+<br><br><br><br><br><br><br>
 <?php
   // Inclure le footer
-  include('footer.php');
+  include('../footer.php');
   ?>
 </body>
 </html>

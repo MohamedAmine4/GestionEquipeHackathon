@@ -17,7 +17,7 @@ if(isset($_POST['valider'])){
     $user=$recupUser->fetch();
     $_SESSION['id']=$user['id'];
     $_SESSION['lastname']=$user['lastname'];
-    header('Location:UserContact.php');
+    header('Location:Alluser.php');
    }
   }
 }
@@ -41,5 +41,9 @@ if(isset($_POST['valider'])){
 </br>
 <button type="submit" name="valider">Envoyer</button>
   </form>
+  <?php
+  // Inclure le footer
+  include('footer.php');
+  ?>
 </body>
 </html>
