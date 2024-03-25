@@ -40,6 +40,10 @@ if (isset($_GET['id']) and !empty($_GET['id'])) {
 </head>
 
 <body>
+<?php
+  // Inclure le footer
+  include('./navbar.php');
+  ?>
   <form action="" method="post">
     <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
       <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">

@@ -9,7 +9,7 @@ if(!$_SESSION['lastname']){
   header('Location: Login.php');
 }
 ?>
-
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,9 +17,14 @@ if(!$_SESSION['lastname']){
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link href="./AllUser.css" rel="stylesheet">
+
   <!-- <script src="test.js"></script> -->
 </head>
 <body>
+<?php
+  // Inclure le footer
+  include('./navbar.php');
+  ?>
 <div class="mx-auto max-w-screen-lg px-4 py-8 sm:px-8">
   <div class="flex items-center justify-between pb-6">
     <div>

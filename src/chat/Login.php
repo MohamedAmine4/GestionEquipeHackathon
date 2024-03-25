@@ -77,7 +77,7 @@ if(isset($_POST['valider'])){
 
 <?php
   // Inclure le footer
-  include('../footer.php');
+  include('./footer.php');
   ?>
 </body>
 </html>
