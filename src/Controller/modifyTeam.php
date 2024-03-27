@@ -1,5 +1,8 @@
 <?php
+
+
 try {
+
   $connection = new PDO("mysql:host=localhost;dbname=hackathon;port:3306;charset=utf8", 'root', '');
 } catch (Exception $e) {
   echo "erreur de connexion $e->$getMessage()";
@@ -47,7 +50,33 @@ if (
   else {
     echo 'erreur de connexion';
   }
-  
-  
-  
+//   function getTeamNameByID($connection, $userID)
+// {
+//     $query = $connection->prepare('SELECT `teamID` FROM `lienequipeetudiant` WHERE `etudaintID` = ?');
+//     $query->execute(array($userID));
+//     $teamID = $query->fetchColumn();
+
+//     // Vérifier si la requête a retourné un résultat valide
+//     if ($teamID !== false) {
+//       echo "<option>".$teamID."</option>";
+//         // Sélectionner le nom de l'équipe à partir de la table 'equipe' en utilisant l'id de l'équipe
+//         $query = $connection->prepare('SELECT * FROM `equipe` WHERE `id` = ?');
+//         $query->execute(array($teamID));
+//         $result = $query->fetchAll();
+
+//         // Vérifier si $result est défini et non vide
+//         if (!empty($result)) {
+//             foreach ($result as $row) {
+//                 echo "<option value='" . $row['id'] . "'>" . $row['teamname'] . "</option>";
+//             }
+//         } else {
+//             // Aucune équipe trouvée pour l'utilisateur
+//             echo "<option>Aucune équipe trouvée pour cet utilisateur.</option>";
+//         }
+//     } else {
+//         // Aucune équipe trouvée pour cet utilisateur
+//         echo "<option>Aucune équipe trouvée pour cet utilisateur.</option>";
+//     }
+// }
+
   ?>

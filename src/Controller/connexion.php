@@ -1,4 +1,6 @@
+
 <?php
+session_start();
 try {
   $connection = new PDO("mysql:host=localhost;dbname=hackathon;port:3306;charset=utf8", 'root', '');
 } catch (Exception $e) {
@@ -7,17 +9,17 @@ try {
 
 //////////////////////////////////////////////////Insertion student skills and email and password
 if (
-  isset($_POST['lname']) && isset($_POST['fname']) &&
+  
   isset($_POST['skills']) && isset($_POST['password']) && isset($_POST['email'])
 ) {
   if (
   (  !empty($_POST['lname']) && !empty($_POST['fname']) &&
     !empty($_POST['skills']) && !empty($_POST['password']) && !empty($_POST['email']))||  ( !empty($_POST['lname']) && !empty($_POST['fname']) &&
-    !empty($_POST['skills']) && empty($_POST['password']) && !empty($_POST['email']))
+    !empty($_POST['skills']) && empty($_POST['password']) && !empty($_POST['email'])  )|| empty($_POST['lname']) && empty($_POST['fname']) 
   ) {
 
-    $lname = htmlspecialchars($_POST['lname']);
-    $fname = htmlspecialchars($_POST['fname']);
+    $lname = htmlspecialchars($_SESSION['lastname']);
+    // $fname = htmlspecialchars($_POST['fname']);
     $email = htmlspecialchars($_POST['email']);
     $password = htmlspecialchars($_POST['password']);
     $skills = htmlspecialchars($_POST['skills']);
@@ -25,7 +27,9 @@ if (
     $insertionEtudiant = $connection->prepare('UPDATE `etudiant` SET `email`=?, `skills`=?, `password`=? WHERE `lastname`=?');
     $insertionEtudiant->execute(array($email, $skills, $password, $lname));
 
-    echo '<center><h1>les informations sont bien ajouté !!</h1></center>';
+    echo '<center><h1>les informations sont bien Modifier !!</h1></center>';
+    echo "<center><button><a href='../View/Home.php'>retour</a></button></center>";
+    
   } else {
     echo 'Attention, Tous Les Champs Sont Obligatoires !!';
   }
@@ -67,6 +71,8 @@ if (
 
     if ($teamExistenceResult > 0) {
         echo '<center><h1>Le nom d\'équipe existe déjà. Veuillez choisir un autre nom.</h1></center>';
+      echo "<center><button><a href='../View/Modifierequipe.php'>retour</a></button></center>";
+      return;
     } else {
         // Insérer le nom d'équipe seulement si le nom n'existe pas déjà
         $insertionTeamName = $connection->prepare('INSERT INTO `equipe` (`teamname`) VALUES (?)');
@@ -92,9 +98,63 @@ if (
       
 
       echo "<center><h1>équipe a été bien ajouté !!</h1></center>";
+      echo "<center><button><a href='../View/Home.php'>retour</a></button></center>";
     }}
   } else {
     echo 'Attention, Tous Les Champs Sont Obligatoires !!';
+  }
+}
+
+
+//////////////////////////////// recape User 
+function getUser($connection, $lastname) {
+  $recupUser=$connection->prepare('SELECT * FROM etudiant WHERE lastname=?');
+  $recupUser->execute(array($lastname));
+  if($recupUser->rowCount()>0){
+    $user=$recupUser->fetch();
+    $_SESSION['id']=$user['id'];
+    $_SESSION['lastname']=$user['lastname'];
+    $_SESSION['firstname']=$user['firstname'];
+    return $user;
+  }
+  return null;
+}
+
+//////////////////////////////// Verifier  User
+
+if (isset($_POST['valider'])) {
+  if (!empty($_POST['lastname']) && !empty($_POST['password'])) {
+      $lastname = $_POST['lastname'];
+      $password = $_POST['password'];
+
+      // Préparer la requête SQL pour sélectionner l'utilisateur en fonction du nom d'utilisateur et du mot de passe
+      $recupUser = $connection->prepare('SELECT * FROM etudiant WHERE lastname = ? AND password = ?');
+      $recupUser->execute(array($lastname, $password));
+
+      // Vérifier si l'utilisateur existe dans la base de données
+      if ($recupUser->rowCount() > 0) {
+          // Utilisateur trouvé, récupérer ses informations
+          $user = $recupUser->fetch();
+
+          // Enregistrer les informations de l'utilisateur dans la session
+          $_SESSION['id'] = $user['id'];
+          $_SESSION['lastname'] = $user['lastname'];
+          $_SESSION['firstname'] = $user['firstname'];
+          $_SESSION['email'] = $user['email'];
+          $_SESSION['password'] = $user['password'];
+          $_SESSION['skills'] = $user['skills'];
+          $_SESSION['class'] = $user['class'];
+
+          // Rediriger l'utilisateur vers la page d'accueil
+          header('Location: Home.php');
+          exit(); // Terminer le script après la redirection
+      } else {
+          // Utilisateur non trouvé, afficher un message d'erreur
+          echo "Nom d'utilisateur ou mot de passe incorrect.";
+      }
+  } else {
+      // Les champs nom d'utilisateur et mot de passe sont vides, afficher un message d'erreur
+      echo "Veuillez saisir votre nom d'utilisateur et votre mot de passe.";
   }
 }
 ?>

@@ -1,3 +1,4 @@
+<?php session_start();?>
 
 <?php 
 if (isset($_POST["submit"])){
@@ -15,18 +16,22 @@ if (isset($_POST["submit"])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./information.css" rel="stylesheet">
+  <link href="../asset/information.css" rel="stylesheet">
   <title>Informations</title>
 </head>
 <body>
+<?php
+  // Inclure le footer
+  include('navbar.php');
+  ?>
 <div class="min-h-screen py-40 bg-center bg-no-repeat bg-cover bg-fixed bg-gray-700 bg-blend-multiply" style="background-image: url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg');">
   <div class="container mx-auto">
   <div class="flex flex-col lg:flex-row w_8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
-    <div class="w-full lg:w-1/2 flex flex-col items-center h-full bg-gray-700 relative" style="background-image: url(images/hackathon_flou.png); background-size: cover; background-repeat: no-repeat; background-position: center; height: 650px;">
+    <div class="w-full lg:w-1/2 flex flex-col items-center h-full bg-gray-700 relative" style="background-image: url(../images/hackathon_flou.png); background-size: cover; background-repeat: no-repeat; background-position: center; height: 650px;">
 
   <div class="w-full h-full flex flex-col items-center justify-center" style="position: relative; z-index: 1;">
     <!-- Votre contenu centré ici -->
-    <div class="w-full h-full " style="background-image: url(images/hackathon.png); background-size: center; background-repeat: no-repeat; background-position: center; height: 650px;">
+    <div class="w-full h-full " style="background-image: url(../images/hackathon.png); background-size: center; background-repeat: no-repeat; background-position: center; height: 650px;">
       <!-- Image ou contenu que vous voulez centrer -->
     </div>
   </div>
@@ -34,12 +39,13 @@ if (isset($_POST["submit"])){
       <div class="w-full lg:w-1/2 py-16 px-12 ">
         <h2 class="text-3xl mb-4 font-bold font-mono flex flex-col items-center">Information About Student</h2>
         <p class="mb-4"> Information Student.</p>
-      <form method="POST" action="connexion.php">
+      <form method="POST" action="../Controller/connexion.php">
         <div class="grid grid-cols-2 gap-2">
 
           <label class="font-mono" >Last Name</label>
           <select type="text" name="lname" placeholder="LastName" id="lname" class="appearance-none border rounded-md border-gray-400 py-1 px-2 h-10" required onchange="updateEmail()">>
-          <?php
+      <option></option>
+      <?php
               $servername = "localhost";
               $username = "root";
               $password = "";
@@ -79,7 +85,7 @@ function updateEmail() {
   // Récupérer la valeur du select
   var lname = document.getElementById("lname").value;
   // Créer l'URL du fichier JSON
-  var url = "http://localhost/web_php/Tp_web/src/data.php";
+  var url = "http://localhost/Hackathon_MVC/Tp_web/src/Model/data.php";
   // Utiliser l'API Fetch pour récupérer le contenu du fichier JSON
   fetch(url)
     .then((response) => {
@@ -127,8 +133,7 @@ function updateEmail() {
           <input placeholder="Skills" name ="skills" id="skills" class="border border-gray-400 rounded-md py-1 px-2 w-full h-10" disabled></input>
         </div>
         <div class="mt-6 flex justify-end">
-  <button value="Envoyer" type="submit" class="bg-green-500 text-white py-2 px-4 rounded mr-auto">Get</button>
-  <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded">Annuler</button>
+  <button type="button" class="bg-blue-500 text-white py-2 px-4 rounded"><a href="Home.php">Annuler</a></button>
 </div>
 
 

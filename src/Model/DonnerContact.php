@@ -23,7 +23,6 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   // Créer un tableau vide pour stocker les données
   $data = array();
-
   // Parcourir le résultat et ajouter chaque ligne au tableau
   while ($row = $result->fetch_assoc()) {
     $data[] = $row;

@@ -5,9 +5,7 @@ try {
 } catch (Exception $e) {
   echo "erreur de connexion $e->$getMessage()";
 }
-if (!$_SESSION['lastname']) {
-  header('Location: Login.php');
-}
+
 
 if (isset($_GET['id']) and !empty($_GET['id'])) {
   $id = $_GET['id'];
@@ -35,11 +33,15 @@ if (isset($_GET['id']) and !empty($_GET['id'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./chat.css" rel="stylesheet">
+  <link href="../asset/chat.css" rel="stylesheet">
   <title>Document</title>
 </head>
 
 <body>
+<?php
+  // Inclure le footer
+  include('navbar.php');
+  ?>
   <form action="" method="post">
     <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col h-screen">
       <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
@@ -189,10 +191,11 @@ if (isset($_GET['id']) and !empty($_GET['id'])) {
     const el = document.getElementById('messages')
     el.scrollTop = el.scrollHeight
   </script>
-  <?php
+
+<br><br><br>
+<?php
   // Inclure le footer
   include('footer.php');
   ?>
 </body>
-
 </html>
